@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hackathon Management Platform</title>
+  <style>
+    :root {
+      --primary-color: #010e1d;
+      --secondary-color: #2c3e50;
+      --accent-color: #e74c3c;
+      --bg-color: #f5f6fa;
+      --text-color: #2c3e50;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+    }
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 5%;
+      background-color: white;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--primary-color);
+    }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-color);
+      font-weight: 500;
+    }
+    .nav-links button {
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    #loginBtn {
+      background-color: transparent;
+      color: var(--primary-color);
+      border: 1px solid var(--primary-color);
+    }
+    #registerBtn {
+      background-color: var(--primary-color);
+      color: white;
+    }
+    .hero {
+      text-align: center;
+      padding: 4rem 2rem;
+      background-color: var(--primary-color);
+      color: white;
+    }
+    .hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    .cta-button {
+      padding: 1rem 2rem;
+      font-size: 1.1rem;
+      background-color: white;
+      color: var(--primary-color);
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 2rem;
+    }
+    .events-section,
+    .teams-section {
+      padding: 4rem 5%;
+    }
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background-color: var(--secondary-color);
+      color: white;
+    }
+    @media (max-width: 768px) {
+      .nav-links {
+        gap: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">HackathonHub</div>
+    <div class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#events">Events</a>
+      <a href="#teams">Teams</a>
+      <a href="#submissions">Submissions</a>
+      <div id="userSection">
+        <!-- Link the login button to hackathon.html -->
+        <a href="hack6.html"><button>Login</button></a>
+        
+       <!-- <a href="hackathon2.html"><button>Dashboard</button></a> -->
+        <button id="registerBtn">Register</button>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section id="home" class="hero">
+      <h1>Welcome to HackathonHub</h1>
+      <p>Join the next generation of innovators</p>
+      <button class="cta-button">Explore Hackathons</button>
+    </section>
+
+    <!-- Additional content (events, teams) can go here -->
+  </main>
+
+  <footer>
+    <p>&copy; 2024 HackathonHub. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Your JavaScript for handling events on this page...
+  </script>
+</body>
+</html>

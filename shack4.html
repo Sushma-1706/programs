@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hackathon Management Platform</title>
+  <style>
+    :root {
+      --primary-color: #010e1d;
+      --secondary-color: #2c3e50;
+      --accent-color: #e74c3c;
+      --bg-color: #f5f6fa;
+      --text-color: #2c3e50;
+      --light-gray: #ddd;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+    }
+    /* Common Navbar Style */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 5%;
+      background-color: white;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .navbar .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--primary-color);
+    }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-color);
+      font-weight: 500;
+    }
+    .nav-links button {
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    #loginBtn {
+      background-color: transparent;
+      color: var(--primary-color);
+      border: 1px solid var(--primary-color);
+    }
+    #registerBtn {
+      background-color: var(--primary-color);
+      color: white;
+    }
+    /* Landing Page Styles */
+    #landingPage .hero {
+      text-align: center;
+      padding: 4rem 2rem;
+      background-color: var(--primary-color);
+      color: white;
+    }
+    #landingPage .hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    #landingPage .cta-button {
+      padding: 1rem 2rem;
+      font-size: 1.1rem;
+      background-color: white;
+      color: var(--primary-color);
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 2rem;
+    }
+    /* Dashboard Styles */
+    #dashboardPage header {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+    #dashboardPage nav {
+      background-color: white;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      padding: 0.5rem;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    #dashboardPage nav a {
+      text-decoration: none;
+      color: var(--primary-color);
+      font-weight: bold;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+    }
+    #dashboardPage nav a:hover {
+      background-color: var(--light-gray);
+    }
+    #dashboardPage main {
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    #dashboardPage section {
+      margin-bottom: 3rem;
+      background: white;
+      padding: 1.5rem;
+      border-radius: 6px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    #dashboardPage h2 {
+      margin-bottom: 1rem;
+      color: var(--primary-color);
+    }
+    /* Dashboard Forms and Elements */
+    #dashboardPage form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      margin-bottom: 1rem;
+    }
+    #dashboardPage input,
+    #dashboardPage textarea,
+    #dashboardPage select,
+    #dashboardPage button {
+      padding: 0.8rem;
+      border: 1px solid var(--light-gray);
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+    #dashboardPage button {
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    #dashboardPage button:hover {
+      background-color: var(--accent-color);
+    }
+    #dashboardPage .project-list {
+      list-style: none;
+      padding: 0;
+    }
+    #dashboardPage .project-list li {
+      border-bottom: 1px solid var(--light-gray);
+      padding: 0.5rem 0;
+    }
+    #dashboardPage .chat-container {
+      border: 1px solid var(--light-gray);
+      border-radius: 4px;
+      height: 200px;
+      overflow-y: auto;
+      padding: 1rem;
+      background: #fff;
+    }
+    #dashboardPage .chat-message {
+      margin-bottom: 0.5rem;
+      padding: 0.5rem;
+      border-radius: 4px;
+      background: var(--light-gray);
+    }
+    #dashboardPage table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1rem;
+    }
+    #dashboardPage table, 
+    #dashboardPage th, 
+    #dashboardPage td {
+      border: 1px solid var(--light-gray);
+    }
+    #dashboardPage th, 
+    #dashboardPage td {
+      padding: 0.8rem;
+      text-align: center;
+    }
+    #dashboardPage .schedule {
+      list-style: none;
+      padding: 0;
+    }
+    #dashboardPage .schedule li {
+      border-bottom: 1px solid var(--light-gray);
+      padding: 0.5rem 0;
+    }
+    /* Footer (common to both pages) */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background-color: var(--secondary-color);
+      color: white;
+    }
+    /* Initially show landing page, hide dashboard */
+    #dashboardPage {
+      display: none;
+    }
+    @media (max-width: 768px) {
+      .nav-links {
+        gap: 1rem;
+      }
+      #dashboardPage nav {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Landing Page Container -->
+  <div id="landingPage">
+    <nav class="navbar">
+      <div class="logo">HackathonHub</div>
+      <div class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#events">Events</a>
+        <a href="#teams">Teams</a>
+        <a href="#submissions">Submissions</a>
+        <div id="userSection">
+          <!-- Switch to dashboard view when clicking Login or Explore -->
+          <button id="loginBtn" onclick="switchView('dashboard')">Login</button>
+          <button id="registerBtn" onclick="alert('Registration flow here')">Register</button>
+        </div>
+      </div>
+    </nav>
+    <main>
+      <section id="home" class="hero">
+        <h1>Welcome to HackathonHub</h1>
+        <p>Join the next generation of innovators</p>
+        <button class="cta-button" onclick="switchView('dashboard')">Explore Hackathons</button>
+      </section>
+      <!-- Additional landing page content can go here -->
+    </main>
+    <footer>
+      <p>&copy; 2024 HackathonHub. All rights reserved.</p>
+    </footer>
+  </div>
+
+  <!-- Dashboard Page Container -->
+  <div id="dashboardPage">
+    <header>
+      <h1>Hackathon Dashboard</h1>
+    </header>
+    <nav>
+      <a href="#project-submission">Projects</a>
+      <a href="#communication">Communication</a>
+      <a href="#judging">Judging</a>
+      <a href="#schedule">Schedule</a>
+      <a href="#" onclick="switchView('landing')">Back to Home</a>
+    </nav>
+    <main>
+      <!-- Project Submission & Management -->
+      <section id="project-submission">
+        <h2>Project Submission & Management</h2>
+        <form id="projectForm">
+          <input type="text" name="projectTitle" placeholder="Project Title" required />
+          <textarea name="projectDescription" placeholder="Project Description" required></textarea>
+          <button type="submit">Submit Project</button>
+        </form>
+        <h3>Submitted Projects:</h3>
+        <ul class="project-list" id="projectList">
+          <li>No projects submitted yet.</li>
+        </ul>
+      </section>
+      
+      <!-- Real-Time Communication & Notifications -->
+      <section id="communication">
+        <h2>Real-Time Communication & Notifications</h2>
+        <div class="chat-container" id="chatContainer">
+          <!-- Chat messages will appear here -->
+        </div>
+        <form id="chatForm">
+          <input type="text" name="message" placeholder="Type a message..." required />
+          <button type="submit">Send</button>
+        </form>
+      </section>
+      
+      <!-- Judging & Scoring Interface -->
+      <section id="judging">
+        <h2>Judging & Scoring Interface</h2>
+        <table id="scoringTable">
+          <thead>
+            <tr>
+              <th>Project Title</th>
+              <th>Judge</th>
+              <th>Score</th>
+              <th>Comments</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td colspan="4">No scores yet.</td>
+            </tr>
+          </tbody>
+        </table>
+        <form id="scoringForm">
+          <input type="text" name="projectTitle" placeholder="Project Title" required />
+          <input type="text" name="judgeName" placeholder="Judge Name" required />
+          <input type="number" name="score" placeholder="Score (0-100)" min="0" max="100" required />
+          <textarea name="comments" placeholder="Comments" required></textarea>
+          <button type="submit">Submit Score</button>
+        </form>
+      </section>
+      
+      <!-- Event Schedule & Live Updates -->
+      <section id="schedule">
+        <h2>Event Schedule & Live Updates</h2>
+        <ul class="schedule" id="scheduleList">
+          <li>09:00 AM - Registration Opens</li>
+          <li>10:00 AM - Opening Ceremony</li>
+          <li>11:00 AM - Project Submissions Start</li>
+          <li>02:00 PM - Lunch Break</li>
+          <li>03:00 PM - Judging Begins</li>
+        </ul>
+        <button id="updateScheduleBtn">Simulate Live Update</button>
+      </section>
+    </main>
+    <footer>
+      <p>&copy; 2024 HackathonHub. All rights reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    // Simple view switcher to toggle between Landing Page and Dashboard
+    function switchView(view) {
+      if (view === 'dashboard') {
+        document.getElementById('landingPage').style.display = 'none';
+        document.getElementById('dashboardPage').style.display = 'block';
+      } else if (view === 'landing') {
+        document.getElementById('dashboardPage').style.display = 'none';
+        document.getElementById('landingPage').style.display = 'block';
+      }
+    }
+
+    // --- Dashboard JavaScript Logic ---
+    // PROJECT SUBMISSION & MANAGEMENT
+    const projectForm = document.getElementById('projectForm');
+    const projectList = document.getElementById('projectList');
+    let projects = [];
+    projectForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const formData = new FormData(projectForm);
+      const projectTitle = formData.get('projectTitle');
+      const projectDescription = formData.get('projectDescription');
+      const newProject = { title: projectTitle, description: projectDescription };
+      projects.push(newProject);
+      renderProjects();
+      projectForm.reset();
+    });
+    function renderProjects() {
+      if (projects.length === 0) {
+        projectList.innerHTML = '<li>No projects submitted yet.</li>';
+      } else {
+        projectList.innerHTML = projects.map(p => `<li><strong>${p.title}</strong>: ${p.description}</li>`).join('');
+      }
+    }
+
+    // REAL-TIME COMMUNICATION & NOTIFICATIONS (Simulated Chat)
+    const chatForm = document.getElementById('chatForm');
+    const chatContainer = document.getElementById('chatContainer');
+    chatForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const formData = new FormData(chatForm);
+      const message = formData.get('message');
+      addChatMessage('You', message);
+      chatForm.reset();
+    });
+    function addChatMessage(sender, message) {
+      const msgDiv = document.createElement('div');
+      msgDiv.className = 'chat-message';
+      msgDiv.innerHTML = `<strong>${sender}:</strong> ${message}`;
+      chatContainer.appendChild(msgDiv);
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+    // Simulate an incoming message every 10 seconds
+    setInterval(() => {
+      addChatMessage('System', 'This is a live notification!');
+    }, 10000);
+
+    // JUDGING & SCORING INTERFACE
+    const scoringForm = document.getElementById('scoringForm');
+    const scoringTableBody = document.querySelector('#scoringTable tbody');
+    let scores = [];
+    scoringForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const formData = new FormData(scoringForm);
+      const projectTitle = formData.get('projectTitle');
+      const judgeName = formData.get('judgeName');
+      const score = formData.get('score');
+      const comments = formData.get('comments');
+      const newScore = { projectTitle, judgeName, score, comments };
+      scores.push(newScore);
+      renderScores();
+      scoringForm.reset();
+    });
+    function renderScores() {
+      if (scores.length === 0) {
+        scoringTableBody.innerHTML = '<tr><td colspan="4">No scores yet.</td></tr>';
+      } else {
+        scoringTableBody.innerHTML = scores.map(s => `
+          <tr>
+            <td>${s.projectTitle}</td>
+            <td>${s.judgeName}</td>
+            <td>${s.score}</td>
+            <td>${s.comments}</td>
+          </tr>
+        `).join('');
+      }
+    }
+
+    // EVENT SCHEDULE & LIVE UPDATES
+    const scheduleList = document.getElementById('scheduleList');
+    const updateScheduleBtn = document.getElementById('updateScheduleBtn');
+    updateScheduleBtn.addEventListener('click', function() {
+      const now = new Date();
+      const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      const newItem = document.createElement('li');
+      newItem.textContent = `${timeString} - Live update: New announcement!`;
+      scheduleList.appendChild(newItem);
+    });
+  </script>
+</body>
+</html>
